@@ -81,7 +81,11 @@ public static class XYZExtensions
         var projectedPoint = pointToProject - distance * plane.Normal;
         return projectedPoint;
     }
-
+    public static bool LiesOnCurve(
+        this XYZ point, Curve curve)
+    {
+        return curve.Distance(point).IsAlmostEqualTo(0);
+    }
     public static AlignmentResult GetAlignmentResultTo(this XYZ vectorToAlign, XYZ targetVector)
     {
         var rotationAxis = targetVector.CrossProduct(vectorToAlign);
