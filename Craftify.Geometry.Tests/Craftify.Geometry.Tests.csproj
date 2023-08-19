@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>Library</OutputType>
+        <TargetFramework>net48</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <Nullable>enable</Nullable>
+        <!-- Add these lines -->
+<!--                <PackageId>Craftify.Geometry.Tests</PackageId>-->
+<!--                <Version>1.0.0</Version>-->
+    </PropertyGroup>
+<!--            <PropertyGroup Condition="'$(Configuration)'=='Debug'">-->
+<!--                <IncludePackageReferencesDuringMarkupCompilation>false</IncludePackageReferencesDuringMarkupCompilation>-->
+<!--                <Revision>$([MSBuild]::Divide($([System.DateTime]::Now.TimeOfDay.TotalSeconds), 4).ToString('F0'))</Revision>-->
+<!--                <PackageAssemblyVersion>.Dev.$(Version).$(Revision)</PackageAssemblyVersion>-->
+<!--            </PropertyGroup>-->
+<!--            <PropertyGroup>-->
+<!--                &lt;!&ndash; Add this line &ndash;&gt;-->
+<!--                <AssemblyName>$(PackageId)$(PackageAssemblyVersion)</AssemblyName>-->
+<!--            </PropertyGroup>-->
+    <ItemGroup>
+      <Folder Include="Properties\" />
+      <Folder Include="RevitFiles\" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\src\Craftify.Geometry\Craftify.Geometry.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="xUnitRevitUtils.2023" Version="1.0.7" />
+    </ItemGroup>
+</Project>
