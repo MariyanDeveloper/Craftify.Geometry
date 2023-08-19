@@ -36,7 +36,6 @@ namespace Craftify.Geometry.Extensions
         {
             var startParameter = curve.GetEndParameter(_startIndex);
             var endParameter = curve.GetEndParameter(_endIndex);
-            //TODO - check for more convenient switch expression
             if (extension == Extension.Both)
             {
                 curve.MakeBound(startParameter - value, endParameter + value);

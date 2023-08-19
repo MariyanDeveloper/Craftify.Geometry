@@ -5,6 +5,7 @@
         <TargetFramework>net48</TargetFramework>
         <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>
+        <Version>1.1.0</Version>
     </PropertyGroup>
     <ItemGroup>
       <PackageReference Include="craftify.shared" Version="1.0.0" />
