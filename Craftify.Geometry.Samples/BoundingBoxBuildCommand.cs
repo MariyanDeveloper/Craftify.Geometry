@@ -5,7 +5,6 @@ using Craftify.Geometry.BoundingBoxVisualizations;
 using Craftify.Geometry.Builders;
 using Craftify.Geometry.Enums;
 using Craftify.Geometry.Extensions;
-using Craftify.Geometry.Options;
 
 namespace Craftify.Geometry.Samples;
 

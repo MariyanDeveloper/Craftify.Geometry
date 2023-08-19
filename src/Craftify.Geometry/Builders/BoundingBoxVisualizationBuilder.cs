@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.Remoting.Messaging;
 using Craftify.Geometry.BoundingBoxVisualizations;
-using Craftify.Geometry.Options;
 
 namespace Craftify.Geometry.Builders;
 

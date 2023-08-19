@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using Craftify.Geometry.Enums;
-using Craftify.Geometry.Interfaces;
+﻿using Craftify.Geometry.Enums;
 
 namespace Craftify.Geometry.Options;
 

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Autodesk.Revit.DB;
+﻿using Autodesk.Revit.DB;
 using Craftify.Geometry.Collections;
 using Craftify.Geometry.Enums;
 
