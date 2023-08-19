@@ -7,11 +7,7 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
     <ItemGroup>
+      <PackageReference Include="craftify.shared" Version="1.0.0" />
       <PackageReference Include="Revit_All_Main_Versions_API_x64" Version="2023.0.0" />
-    </ItemGroup>
-    <ItemGroup>
-      <Reference Include="Craftify.Shared">
-        <HintPath>..\..\..\Craftify.Shared\src\Craftify.Shared\bin\Debug\net48\Craftify.Shared.dll</HintPath>
-      </Reference>
     </ItemGroup>
 </Project>

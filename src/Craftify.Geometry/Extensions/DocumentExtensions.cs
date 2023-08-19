@@ -2,7 +2,7 @@
 using System.Linq;
 using Autodesk.Revit.DB;
 
-namespace Craftify.Geometry;
+namespace Craftify.Geometry.Extensions;
 
 public static class DocumentExtensions
 {
@@ -11,7 +11,6 @@ public static class DocumentExtensions
         IEnumerable<GeometryObject> geometryObjects,
         BuiltInCategory builtInCategory = BuiltInCategory.OST_GenericModel)
     {
-
         var directShape = DirectShape.CreateElement(document, new ElementId(builtInCategory));
         directShape.SetShape(geometryObjects.ToList());
         return directShape;

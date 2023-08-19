@@ -1,9 +1,11 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using Autodesk.Revit.DB;
+using Craftify.Geometry.Collections;
 
-namespace Craftify.Geometry
+namespace Craftify.Geometry.Extensions
 {
     public static class SolidExtensions
     {
@@ -15,7 +17,32 @@ namespace Craftify.Geometry
                 .Aggregate((x, y) => BooleanOperationsUtils.ExecuteBooleanOperation(
                         x, y, BooleanOperationsType.Union));
         }
-        
+
+        public static Solids ToSolids(this IEnumerable<Solid> solids) => new Solids(solids);
+        public static IEnumerable<T> GetChildComponents<T>(this Solid solid)
+        {
+            if (typeof(T) == typeof(Face))
+            {
+                return solid.GetFaces() as IEnumerable<T>;
+            }
+            if (typeof(T) == typeof(Curve))
+            {
+                return solid.GetCurves() as IEnumerable<T>;
+            }
+
+            if (typeof(T) == typeof(XYZ))
+            {
+                return solid.GetVertices() as IEnumerable<T>;
+            }
+
+            if (typeof(T) == typeof(CurveLoop))
+            {
+                return solid.GetFaces()
+                    .SelectMany(f => f.GetEdgesAsCurveLoops()) as IEnumerable<T>;
+            }
+
+            throw new NotImplementedException($"Given type : {typeof(T)} is not supported");
+        }
         public static Solid CreateMoved(this Solid solid, XYZ translation)
         {
             return solid.CreateTransformed(Transform.CreateTranslation(translation));
@@ -40,42 +67,25 @@ namespace Craftify.Geometry
         public static bool HasFaces(
             this Solid solid) => solid.Faces.Size > 0;
         
-        public static IEnumerable<Face> GetFaces(
+        public static Faces GetFaces(
             this Solid solid)
         {
-            return solid.Faces.OfType<Face>();
+            return new Faces(solid.Faces.OfType<Face>());
 
         }
-        public static IEnumerable<TComponent> GetComponents<TComponent>(this Solid solid)
-        {
-            var requiredType = typeof(TComponent);
-            if (requiredType == typeof(Face))
-            {
-                return solid.GetFaces().Cast<TComponent>();
-            }
-            if (requiredType == typeof(Curve))
-            {
-                return solid.GetCurves().Cast<TComponent>();
-            }
-            if (requiredType == typeof(XYZ))
-            {
-                return solid.GetVertices().Cast<TComponent>();
-            }
-            throw new NotImplementedException($"The given type {requiredType} is not supported");
-        }
-        public static IEnumerable<Curve> GetCurves(
+        public static Curves GetCurves(
             this Solid solid)
         {
-            return solid.GetFaces()
+            return new Curves(solid.GetFaces()
                 .SelectMany(x => x.GetEdgesAsCurveLoops())
-                .SelectMany(x => x);
+                .SelectMany(x => x));
         }
         
-        public static IEnumerable<XYZ> GetVertices(
+        public static Vertices GetVertices(
             this Solid solid)
         {
-            return solid.GetCurves()
-                .SelectMany(x => x.Tessellate());
+            return new Vertices(solid.GetCurves()
+                .SelectMany(x => x.Tessellate()));
         }
 
     }

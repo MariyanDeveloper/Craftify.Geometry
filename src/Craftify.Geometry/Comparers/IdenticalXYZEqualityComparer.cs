@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Autodesk.Revit.DB;
 
-namespace Craftify.Geometry;
+namespace Craftify.Geometry.Comparers;
 
 public class IdenticalXYZEqualityComparer : IEqualityComparer<XYZ>
 {

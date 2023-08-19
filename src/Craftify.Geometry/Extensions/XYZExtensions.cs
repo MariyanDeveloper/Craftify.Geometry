@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using Autodesk.Revit.DB;
+using Craftify.Geometry.Collections;
 using Craftify.Geometry.Enums;
+using Craftify.Geometry.Interfaces;
 using Craftify.Shared;
 
-namespace Craftify.Geometry;
+namespace Craftify.Geometry.Extensions;
 
 public static class XYZExtensions
 {
@@ -29,19 +31,28 @@ public static class XYZExtensions
     {
         document.CreateDirectShape(Point.Create(point));
     }
+
+    public static void VisualizeIn(this IEnumerable<XYZ> points, Document document)
+    {
+        document.CreateDirectShape(points.Select(Point.Create));
+    }
         
-    public static VectorRelation GetRelationTo(
+    public static VectorRelation CalculateRelationTo(
         this XYZ fromVector, XYZ toVector)
     {
-        if (fromVector.DotProduct(toVector).IsAlmostEqualTo(1))
+        var signOfVectorEquality = 1;
+        var signOfVectorReversion = -1;
+        var signOfVectorPerpendicularity = 0;
+        
+        if (fromVector.DotProduct(toVector).IsAlmostEqualTo(signOfVectorEquality))
         {
             return VectorRelation.Equal;
         }
-        if (fromVector.DotProduct(toVector).IsAlmostEqualTo(-1))
+        if (fromVector.DotProduct(toVector).IsAlmostEqualTo(signOfVectorReversion))
         {
             return VectorRelation.Reversed;
         }
-        if (fromVector.DotProduct(toVector).IsAlmostEqualTo(0))
+        if (fromVector.DotProduct(toVector).IsAlmostEqualTo(signOfVectorPerpendicularity))
         {
             return VectorRelation.Perpendicular;
         }
@@ -54,20 +65,20 @@ public static class XYZExtensions
         return (secondPoint - firstPoint);
     }
     
-    public static XYZ ToNormalizedVector(
+    public static XYZ GetNormalizedVectorTo(
         this XYZ firstPoint, XYZ secondPoint)
     {
         return (secondPoint - firstPoint).Normalize();
     }
     
-    public static double ToDistanceAlongVector(
+    public static double MeasureDistanceAlongVector(
         this XYZ firstPoint, XYZ secondPoint, XYZ vector)
     {
         return Math.Abs(
             firstPoint.ToVector(secondPoint).DotProduct(vector));
     }
     
-    public static double GetSignedDistance(
+    public static double MeasureSignedDistance(
         this XYZ firstPoint, XYZ secondPoint, XYZ vector)
     {
         return firstPoint.ToVector(secondPoint).DotProduct(vector);
@@ -76,7 +87,7 @@ public static class XYZExtensions
     public static XYZ ProjectOntoPlane(
         this XYZ pointToProject, Plane plane)
     {
-        var distance = plane.Origin.GetSignedDistance(
+        var distance = plane.Origin.MeasureSignedDistance(
             pointToProject, plane.Normal);
         var projectedPoint = pointToProject - distance * plane.Normal;
         return projectedPoint;
@@ -86,7 +97,7 @@ public static class XYZExtensions
     {
         return curve.Distance(point).IsAlmostEqualTo(0);
     }
-    public static AlignmentResult GetAlignmentResultTo(this XYZ vectorToAlign, XYZ targetVector)
+    public static AlignmentResult CalculateAlignmentResultTo(this XYZ vectorToAlign, XYZ targetVector)
     {
         var rotationAxis = targetVector.CrossProduct(vectorToAlign);
         rotationAxis = rotationAxis.IsZeroLength() ? XYZ.BasisZ : rotationAxis;
@@ -94,7 +105,7 @@ public static class XYZExtensions
         return new AlignmentResult(rotationAxis, angle);
     }
     public static XYZ GetMinByCoordinates(
-        this IList<XYZ> points)
+        this ICollection<XYZ> points)
     {
         var minPoint = new XYZ(
             points.Min(x => x.X),
@@ -104,7 +115,7 @@ public static class XYZExtensions
     }
 
     public static XYZ GetMaxByCoordinates(
-        this IList<XYZ> points)
+        this ICollection<XYZ> points)
     {
         var minPoint = new XYZ(
             points.Max(x => x.X),
@@ -112,4 +123,18 @@ public static class XYZExtensions
             points.Max(x => x.Z));
         return minPoint;
     }
+    
+    public static Transform AlignToTransform(this XYZ vector, IVectorToTransformAlignment vectorToTransformAlignment)
+    {
+        if (vector is null) throw new ArgumentNullException(nameof(vector));
+        if (vectorToTransformAlignment is null) throw new ArgumentNullException(nameof(vectorToTransformAlignment));
+        return vectorToTransformAlignment.Align(vector);
+    }
+
+    public static Coordinates GetCoordinates(this XYZ xyz)
+    {
+        return new Coordinates(Enumerable.Range(0, 3).Select(x => xyz[x]));
+    }
+
+
 }
