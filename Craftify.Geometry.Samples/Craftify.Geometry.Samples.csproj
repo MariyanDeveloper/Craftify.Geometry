@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>Library</OutputType>
+        <TargetFramework>net48</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+    <ItemGroup>
+      <Folder Include="Properties\" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\src\Craftify.Geometry\Craftify.Geometry.csproj" />
+    </ItemGroup>
+</Project>
