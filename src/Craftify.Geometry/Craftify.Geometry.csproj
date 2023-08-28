@@ -5,10 +5,24 @@
         <TargetFramework>net48</TargetFramework>
         <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>
-        <Version>1.1.0</Version>
+        <Version>1.0.0</Version>
+        <Title>Craftify.Geometry</Title>
+        <Authors>Mariyan Slesar</Authors>
+        <Description> Enhance your Revit development with advanced geometric operations, sophisticated BoundingBoxXYZ tools, and intuitive visualization capabilities.</Description>
+        <PackageProjectUrl>https://github.com/MariyanDeveloper/Craftify.Geometry</PackageProjectUrl>
+        <PackageIcon>Craftify.png</PackageIcon>
+        <RepositoryUrl>https://github.com/MariyanDeveloper/Craftify.Geometry</RepositoryUrl>
+        <PackageTags>RevitAPI, Geometry</PackageTags>
     </PropertyGroup>
     <ItemGroup>
-      <PackageReference Include="craftify.shared" Version="1.0.0" />
+      <PackageReference Include="Craftify.Shared" Version="1.0.0" />
       <PackageReference Include="Revit_All_Main_Versions_API_x64" Version="2023.0.0" />
+    </ItemGroup>
+    <ItemGroup>
+      <None Include="..\..\..\ProductInformation\Craftify.png">
+        <Pack>True</Pack>
+        <PackagePath></PackagePath>
+        <Link>Craftify.png</Link>
+      </None>
     </ItemGroup>
 </Project>

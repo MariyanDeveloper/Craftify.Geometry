@@ -22,22 +22,22 @@ namespace Craftify.Geometry.Extensions
         {
             if (typeof(T) == typeof(Face))
             {
-                return solid.GetFaces() as IEnumerable<T>;
+                return (IEnumerable<T>)solid.GetFaces();
             }
             if (typeof(T) == typeof(Curve))
             {
-                return solid.GetCurves() as IEnumerable<T>;
+                return (IEnumerable<T>)solid.GetCurves();
             }
 
             if (typeof(T) == typeof(XYZ))
             {
-                return solid.GetVertices() as IEnumerable<T>;
+                return (IEnumerable<T>)solid.GetVertices();
             }
 
             if (typeof(T) == typeof(CurveLoop))
             {
-                return solid.GetFaces()
-                    .SelectMany(f => f.GetEdgesAsCurveLoops()) as IEnumerable<T>;
+                return (IEnumerable<T>)solid.GetFaces()
+                    .SelectMany(f => f.GetEdgesAsCurveLoops());
             }
 
             throw new NotImplementedException($"Given type : {typeof(T)} is not supported");
