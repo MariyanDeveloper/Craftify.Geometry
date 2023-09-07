@@ -50,6 +50,13 @@ public static class SolidChildrenExtractionExtensions
             .SelectMany(x => x.GetEdgesAsCurveLoops())
             .SelectMany(x => x));
     }
+    
+    public static IEnumerable<T> SelectFlattenFaces<T>(this IEnumerable<Solid> solids) where T : Face
+    {
+        return solids
+            .SelectMany(s => s.GetFaces()
+                .OfType<T>());
+    }
         
     public static Vertices GetVertices(
         this Solid solid)
@@ -58,8 +65,6 @@ public static class SolidChildrenExtractionExtensions
             .SelectMany(x => x.Tessellate()));
     }
     
-
-
     public static Vertices GetEdgeVertices(this Solid solid)
     {
         return solid
