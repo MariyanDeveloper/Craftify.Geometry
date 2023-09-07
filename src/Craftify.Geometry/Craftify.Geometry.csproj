@@ -25,6 +25,9 @@
         <Link>Craftify.png</Link>
       </None>
     </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Extensions\CurveLoop\" />
+    </ItemGroup>
 
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
         <Exec Command="del &quot;$(OutputPath)\AdWindows.dll&quot;" />
