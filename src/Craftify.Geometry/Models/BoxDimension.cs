@@ -1,4 +1,4 @@
-﻿namespace Craftify.Geometry.Extensions;
+﻿namespace Craftify.Geometry.Models;
 
 public class BoxDimension
 {

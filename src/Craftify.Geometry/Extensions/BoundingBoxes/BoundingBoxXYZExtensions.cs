@@ -6,8 +6,9 @@ using Craftify.Geometry.BoundingBoxVisualizations;
 using Craftify.Geometry.Collections;
 using Craftify.Geometry.Enums;
 using Craftify.Geometry.Interfaces;
+using Craftify.Geometry.Models;
 
-namespace Craftify.Geometry.Extensions;
+namespace Craftify.Geometry.Extensions.BoundingBoxes;
 
 public static class BoundingBoxXYZExtensions
 {

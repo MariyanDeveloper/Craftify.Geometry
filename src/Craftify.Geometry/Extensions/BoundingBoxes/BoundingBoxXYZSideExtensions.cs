@@ -3,7 +3,7 @@ using Autodesk.Revit.DB;
 using Craftify.Geometry.Collections;
 using Craftify.Geometry.Enums;
 
-namespace Craftify.Geometry.Extensions;
+namespace Craftify.Geometry.Extensions.BoundingBoxes;
 
 public static class BoundingBoxXYZSideExtensions
 {

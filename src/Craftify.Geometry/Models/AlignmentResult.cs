@@ -1,6 +1,6 @@
 ﻿using Autodesk.Revit.DB;
 
-namespace Craftify.Geometry.Extensions;
+namespace Craftify.Geometry.Models;
 
 public ref struct AlignmentResult
 {

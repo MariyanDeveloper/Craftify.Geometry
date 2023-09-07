@@ -1,6 +1,6 @@
 ﻿using Craftify.Geometry.BoundingBoxVisualizations;
 
-namespace Craftify.Geometry.Extensions;
+namespace Craftify.Geometry.Extensions.BoundingBoxes;
 
 public static class BoundingBoxVisualizationExtensions
 {

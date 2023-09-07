@@ -5,6 +5,7 @@ using Autodesk.Revit.DB;
 using Craftify.Geometry.Collections;
 using Craftify.Geometry.Enums;
 using Craftify.Geometry.Interfaces;
+using Craftify.Geometry.Models;
 using Craftify.Shared;
 
 namespace Craftify.Geometry.Extensions;
@@ -135,6 +136,39 @@ public static class XYZExtensions
     {
         return new Coordinates(Enumerable.Range(0, 3).Select(x => xyz[x]));
     }
+    public static Vertices ToVertices(this IEnumerable<XYZ> points) => new(points);
+    
+    public static FurthermostResult GetFurthestPoints(this List<XYZ> points)
+    {
+        XYZ point1 = null, point2 = null;
+        double maxDistance = 0;
 
+        for (var i = 0; i < points.Count; i++)
+        {
+            for (var j = i + 1; j < points.Count; j++)
+            {
+                var distance = points[i].DistanceTo(points[j]);
+                if (distance > maxDistance is false)
+                {
+                    continue;
+                }
+                maxDistance = distance;
+                point1 = points[i];
+                point2 = points[j];
+            }
+        }
 
+        return new FurthermostResult(point1, point2);
+    }
+}
+public class FurthermostResult
+{
+    public XYZ Left { get; }
+    public XYZ Right { get; }
+
+    public FurthermostResult(XYZ left, XYZ right)
+    {
+        Left = left;
+        Right = right;
+    }
 }

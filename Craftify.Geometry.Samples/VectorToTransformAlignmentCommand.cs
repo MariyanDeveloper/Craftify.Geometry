@@ -4,6 +4,7 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
 using Craftify.Geometry.Extensions;
+using Craftify.Geometry.Extensions.Curves;
 using Craftify.Geometry.VectorAlignments;
 
 namespace Craftify.Geometry.Samples;

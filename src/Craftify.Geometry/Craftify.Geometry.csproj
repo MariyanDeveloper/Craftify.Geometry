@@ -5,10 +5,10 @@
         <TargetFramework>net48</TargetFramework>
         <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>
-        <Version>1.0.0</Version>
+        <Version>1.3.0</Version>
         <Title>Craftify.Geometry</Title>
         <Authors>Mariyan Slesar</Authors>
-        <Description> Enhance your Revit development with advanced geometric operations, sophisticated BoundingBoxXYZ tools, and intuitive visualization capabilities.</Description>
+        <Description>Enhance your Revit development with advanced geometric operations, sophisticated BoundingBoxXYZ tools, and intuitive visualization capabilities.</Description>
         <PackageProjectUrl>https://github.com/MariyanDeveloper/Craftify.Geometry</PackageProjectUrl>
         <PackageIcon>Craftify.png</PackageIcon>
         <RepositoryUrl>https://github.com/MariyanDeveloper/Craftify.Geometry</RepositoryUrl>
@@ -25,4 +25,11 @@
         <Link>Craftify.png</Link>
       </None>
     </ItemGroup>
+
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+        <Exec Command="del &quot;$(OutputPath)\AdWindows.dll&quot;" />
+        <Exec Command="del &quot;$(OutputPath)\RevitAPI.dll&quot;" />
+        <Exec Command="del &quot;$(OutputPath)\RevitAPIUI.dll&quot;" />
+        <Exec Command="del &quot;$(OutputPath)\UIFramework.dll&quot;" />
+    </Target>
 </Project>

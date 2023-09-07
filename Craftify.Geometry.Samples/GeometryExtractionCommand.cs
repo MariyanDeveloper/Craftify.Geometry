@@ -2,6 +2,7 @@
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Craftify.Geometry.Extensions;
+using Craftify.Geometry.Extensions.Solids;
 
 namespace Craftify.Geometry.Samples;
 
