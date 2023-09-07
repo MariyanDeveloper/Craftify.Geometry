@@ -160,6 +160,8 @@ public static class XYZExtensions
 
         return new FurthermostResult(point1, point2);
     }
+
+    public static IntersectedPoints ToIntersectedPoints(this IEnumerable<XYZ> points) => new(points);
 }
 public class FurthermostResult
 {
