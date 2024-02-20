@@ -103,7 +103,7 @@ public static class BoundingBoxXYZExtensions
     public static double CalculateSideDimension(this BoundingBoxXYZ boundingBox, Side side)
     {
         return boundingBox.Min
-            .MeasureDistanceAlongVector(boundingBox.Max, side.GetCorrespondingVector());
+            .MeasureSignedDistance(boundingBox.Max, side.GetCorrespondingVector());
     }
     
     /// <summary>
@@ -178,10 +178,6 @@ public static class BoundingBoxXYZExtensions
         Side side,
         Alignment alignment)
     {
-        if (value <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(value));
-        }
         var alignmentFactor = (int)alignment;
         var sideIndex = (int)side;
         var minCoordinates = boundingBox.Min.GetCoordinates();

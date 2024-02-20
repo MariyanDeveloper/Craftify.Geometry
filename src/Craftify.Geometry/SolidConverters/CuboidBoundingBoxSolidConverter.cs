@@ -15,10 +15,15 @@ public class CuboidBoundingBoxSolidConverter : IBoundingBoxSolidConverter
         var options = new BoundingBoxSolidConverterOptions();
         configOptions?.Invoke(options);
         var curveLoop = boundingBox.GetCurveLoop(FaceSide.Bottom, options.ApplyTransform);
+        var extrusionDistance = boundingBox.CalculateDimension().Height;
+        var boundingBoxUpDirection = boundingBox.Transform.BasisZ;
+        var extrusionDirection = (extrusionDistance < 0)
+            ? -boundingBoxUpDirection
+            : boundingBoxUpDirection;
         var solid = GeometryCreationUtilities.CreateExtrusionGeometry(
             new List<CurveLoop>() { curveLoop },
-            boundingBox.Transform.BasisZ,
-            boundingBox.CalculateDimension().Height);
+            extrusionDirection,
+            Math.Abs(extrusionDistance));
         return solid;
     }
 }

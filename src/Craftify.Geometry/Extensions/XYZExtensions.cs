@@ -140,7 +140,8 @@ public static class XYZExtensions
     
     public static FurthermostResult GetFurthestPoints(this List<XYZ> points)
     {
-        XYZ point1 = null, point2 = null;
+        XYZ? point1 = null;
+        XYZ? point2 = null;
         double maxDistance = 0;
 
         for (var i = 0; i < points.Count; i++)
@@ -158,7 +159,7 @@ public static class XYZExtensions
             }
         }
 
-        return new FurthermostResult(point1, point2);
+        return new FurthermostResult(point1!, point2!);
     }
 
     public static IntersectedPoints ToIntersectedPoints(this IEnumerable<XYZ> points) => new(points);
