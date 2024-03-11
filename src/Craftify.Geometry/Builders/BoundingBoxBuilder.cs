@@ -1,6 +1,5 @@
 ﻿using Autodesk.Revit.DB;
 using Craftify.Geometry.Enums;
-using Craftify.Geometry.Extensions;
 using Craftify.Geometry.Extensions.BoundingBoxes;
 
 namespace Craftify.Geometry.Builders;

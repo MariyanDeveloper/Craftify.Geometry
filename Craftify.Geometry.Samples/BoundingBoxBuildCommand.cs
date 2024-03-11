@@ -4,7 +4,6 @@ using Autodesk.Revit.UI;
 using Craftify.Geometry.BoundingBoxVisualizations;
 using Craftify.Geometry.Builders;
 using Craftify.Geometry.Enums;
-using Craftify.Geometry.Extensions;
 using Craftify.Geometry.Extensions.BoundingBoxes;
 
 namespace Craftify.Geometry.Samples;

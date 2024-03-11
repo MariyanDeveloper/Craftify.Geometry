@@ -39,7 +39,7 @@ public static class SolidOperationExtensions
             Transform.CreateTranslation(solid.ComputeCentroid().ToVector(XYZ.Zero)));
     }
 
-    public static Solid CreateUnionSolidWith(this Solid fromSolid, Solid toSolid)
+    public static Solid UnionWith(this Solid fromSolid, Solid toSolid)
     {
         return BooleanOperationsUtils
             .ExecuteBooleanOperation(fromSolid, toSolid, BooleanOperationsType.Union);

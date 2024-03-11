@@ -18,7 +18,7 @@ public static class SolidAnalysisExtensions
         double volumeTolerance = 0.00001,
         int areaDecimalPrecision = 5 )
     {
-        var unionSolid = fromSolid.CreateUnionSolidWith(toSolid);
+        var unionSolid = fromSolid.UnionWith(toSolid);
         var intersectedSolid = fromSolid.CreateIntersectedSolidWith(toSolid);
 
         var sumArea = Math.Round(Math.Abs(fromSolid.SurfaceArea + toSolid.SurfaceArea), areaDecimalPrecision);

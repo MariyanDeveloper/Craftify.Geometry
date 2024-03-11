@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Autodesk.Revit.DB;
-using Craftify.Geometry.Extensions;
 using Craftify.Geometry.Extensions.Curves;
 
 namespace Craftify.Geometry.Collections;

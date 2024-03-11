@@ -1,24 +1,20 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Autodesk.Revit.DB;
-using Craftify.Geometry.Collections;
 using Craftify.Geometry.Enums;
 
 namespace Craftify.Geometry.Extensions.BoundingBoxes;
 
-public static class BoundingBoxXYZSideExtensions
+public static class BoundingBoxXYZSideLookup
 {
-    public static CurveLoops GetCurveLoopOfAllSides(this BoundingBoxXYZ boundingBox, ApplyTransform applyTransform = ApplyTransform.No)
-    {
-        return new CurveLoops()
-        {
-            boundingBox.GetCurveLoop(FaceSide.Bottom, applyTransform),
-            boundingBox.GetCurveLoop(FaceSide.Top, applyTransform),
-            boundingBox.GetCurveLoop(FaceSide.Left, applyTransform),
-            boundingBox.GetCurveLoop(FaceSide.Right, applyTransform),
-            boundingBox.GetCurveLoop(FaceSide.Front, applyTransform),
-            boundingBox.GetCurveLoop(FaceSide.Back, applyTransform),
-        };
-    }
+     public static IEnumerable<CurveLoop> GetCurveLoopOfAllSides(
+         this BoundingBoxXYZ boundingBox,
+         ApplyTransform applyTransform = ApplyTransform.No)
+     {
+         return GetAllSides()
+             .Select(x => boundingBox.GetCurveLoop(x, applyTransform));
+     }
+
     public static CurveLoop GetCurveLoop(
         this BoundingBoxXYZ boundingBox,
         FaceSide faceSide,
@@ -37,11 +33,11 @@ public static class BoundingBoxXYZSideExtensions
     
     private static CurveLoop GetRightCurveLoop(this BoundingBoxXYZ boundingBox, ApplyTransform applyTransform)
     {
-        var boxDimension = boundingBox.CalculateDimension();
-        var pt1 = boundingBox.Min.MoveAlongVector(XYZ.BasisX, boxDimension.Length);
-        var pt2 = pt1.MoveAlongVector(XYZ.BasisY * boxDimension.Width);
-        var pt3 = pt2.MoveAlongVector(XYZ.BasisZ * boxDimension.Height);
-        var pt4 = pt1.MoveAlongVector(XYZ.BasisZ * boxDimension.Height);
+        var (length, width, height) = boundingBox.CalculateDimension();
+        var pt1 = boundingBox.Min.MoveAlongVector(XYZ.BasisX, length);
+        var pt2 = pt1.MoveAlongVector(XYZ.BasisY * width);
+        var pt3 = pt2.MoveAlongVector(XYZ.BasisZ * height);
+        var pt4 = pt1.MoveAlongVector(XYZ.BasisZ * height);
         return CreateSideCurveLoop(pt1, pt2, pt3, pt4, boundingBox.Transform, applyTransform);
     }
     private static CurveLoop GetLeftCurveLoop(this BoundingBoxXYZ boundingBox, ApplyTransform applyTransform)
@@ -89,7 +85,14 @@ public static class BoundingBoxXYZSideExtensions
         var pt4 = pt1.MoveAlongVector(XYZ.BasisY * boxDimension.Width);
         return CreateSideCurveLoop(pt1, pt2, pt3, pt4, boundingBox.Transform, applyTransform);
     }
-
+    
+    private static IEnumerable<FaceSide> GetAllSides()
+    {
+        return new[]
+        {
+            FaceSide.Bottom, FaceSide.Top, FaceSide.Left, FaceSide.Right, FaceSide.Front, FaceSide.Back
+        };
+    }
     private static CurveLoop CreateSideCurveLoop(
         XYZ pt1,
         XYZ pt2,
