@@ -13,4 +13,12 @@ public static class GeometryObjectExtensions
     {
         document.CreateDirectShape(geometries);
     }
+    
+    public static void VisualizePerEachIn(this IEnumerable<GeometryObject> geometries, Document document)
+    {
+        foreach (var geometryObject in geometries)
+        {
+            geometryObject.VisualizeIn(document);
+        }
+    }
 }

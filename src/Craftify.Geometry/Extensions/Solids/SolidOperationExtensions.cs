@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Autodesk.Revit.DB;
+using Craftify.Geometry.Extensions.Points;
 
 namespace Craftify.Geometry.Extensions.Solids;
-
 
 public static class SolidOperationExtensions
 {
@@ -25,7 +25,7 @@ public static class SolidOperationExtensions
     {
         var combinedTransform = transforms
             .Reverse()
-            .Aggregate((current, next) => current.Multiply(next));
+            .Aggregate((accumulation, current) => accumulation.Multiply(current));
         return solid.CreateTransformed(combinedTransform);
     }
     public static Solid CreateTransformed(

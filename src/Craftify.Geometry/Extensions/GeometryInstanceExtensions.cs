@@ -13,9 +13,7 @@ public static class GeometryInstanceExtensions
         var familyGeometryElement = (geometryRepresentation == GeometryRepresentation.Symbol)
             ? geometryInstance.SymbolGeometry
             : geometryInstance.GetInstanceGeometry();
-        foreach (var geometryObject in familyGeometryElement.ExtractRootGeometries<T>(geometryRepresentation))
-        {
-            yield return geometryObject;
-        }
+        return familyGeometryElement
+            .ExtractRootGeometries<T>(geometryRepresentation);
     }
 }

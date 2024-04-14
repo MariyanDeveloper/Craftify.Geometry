@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Autodesk.Revit.DB;
+using Craftify.Geometry.BoundingBoxes;
 using Craftify.Geometry.Enums;
-using Craftify.Geometry.Extensions.BoundingBoxes;
 using Craftify.Geometry.Interfaces;
 
 namespace Craftify.Geometry.SolidConverters;

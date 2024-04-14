@@ -2,10 +2,11 @@
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
-using Craftify.Geometry.BoundingBoxVisualizations;
-using Craftify.Geometry.Builders;
+using Craftify.Geometry.BoundingBoxes;
+using Craftify.Geometry.BoundingBoxes.Builders;
+using Craftify.Geometry.BoundingBoxes.Visualizations;
 using Craftify.Geometry.Extensions;
-using Craftify.Geometry.Extensions.BoundingBoxes;
+using Craftify.Geometry.Extensions.Points;
 
 namespace Craftify.Geometry.TestCommands;
 

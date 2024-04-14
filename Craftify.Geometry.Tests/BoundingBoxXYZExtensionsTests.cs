@@ -1,7 +1,7 @@
 ﻿using Autodesk.Revit.DB;
-using Craftify.Geometry.Builders;
+using Craftify.Geometry.BoundingBoxes;
+using Craftify.Geometry.BoundingBoxes.Builders;
 using Craftify.Geometry.Enums;
-using Craftify.Geometry.Extensions.BoundingBoxes;
 using Craftify.Shared;
 using Xunit;
 

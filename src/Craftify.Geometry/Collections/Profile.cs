@@ -18,7 +18,7 @@ public class Profile : List<CurveLoop>, IEquatable<Profile>
         var flattenCurrentCurves = this.SelectMany(x => x);
         var flattenOtherCurves = other.SelectMany(x => x);
         return flattenCurrentCurves
-            .All(expected => flattenOtherCurves.Any(expected.CompletelyInside));
+            .All(expected => flattenOtherCurves.Any(expected.IsCompletelyInside));
     }
 
     public override bool Equals(object? obj)

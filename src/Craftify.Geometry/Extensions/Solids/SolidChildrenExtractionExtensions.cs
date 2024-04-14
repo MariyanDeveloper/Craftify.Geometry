@@ -1,76 +1,59 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Autodesk.Revit.DB;
-using Craftify.Geometry.Collections;
 
 namespace Craftify.Geometry.Extensions.Solids;
 
 public static class SolidChildrenExtractionExtensions
 {
     
-    public static Collections.Solids ToSolids(this IEnumerable<Solid> solids) => new Collections.Solids(solids);
-    
-    public static IEnumerable<T> GetChildComponents<T>(this Solid solid)
-    {
-        if (typeof(T) == typeof(Face))
-        {
-            return (IEnumerable<T>)solid.GetFaces();
-        }
-        if (typeof(T) == typeof(Curve))
-        {
-            return (IEnumerable<T>)solid.GetCurves();
-        }
-
-        if (typeof(T) == typeof(XYZ))
-        {
-            return (IEnumerable<T>)solid.GetVertices();
-        }
-
-        if (typeof(T) == typeof(CurveLoop))
-        {
-            return (IEnumerable<T>)solid.GetFaces()
-                .SelectMany(f => f.GetEdgesAsCurveLoops());
-        }
-
-        throw new NotImplementedException($"Given type : {typeof(T)} is not supported");
-    }
-    
-        
-    public static Faces GetFaces(
+    public static IEnumerable<Face> SelectFaces(
         this Solid solid)
     {
-        return new Faces(solid.Faces.OfType<Face>());
-
+        return solid.Faces.OfType<Face>();
     }
-    public static Collections.Curves GetCurves(
+    public static IEnumerable<Curve> SelectCurves(
         this Solid solid)
     {
-        return new Collections.Curves(solid.GetFaces()
+        return solid.SelectCurveLoops()
+            .SelectMany(x => x);
+    }
+
+    public static IEnumerable<CurveLoop> SelectCurveLoops(this Solid solid)
+    {
+        return solid
+            .SelectFaces()
+            .SelectMany(x => x.GetEdgesAsCurveLoops());
+    }
+    
+    public static IEnumerable<T> SelectCurvesOfType<T>(
+        this Solid solid) where T: Curve
+    {
+        return solid.SelectFaces()
             .SelectMany(x => x.GetEdgesAsCurveLoops())
-            .SelectMany(x => x));
+            .SelectMany(x => x)
+            .OfType<T>();
     }
     
     public static IEnumerable<T> SelectFlattenFaces<T>(this IEnumerable<Solid> solids) where T : Face
     {
         return solids
-            .SelectMany(s => s.GetFaces()
+            .SelectMany(s => s.SelectFaces()
                 .OfType<T>());
     }
         
-    public static Vertices GetVertices(
+    public static IEnumerable<XYZ> SelectFaceVertices(
         this Solid solid)
     {
-        return new Vertices(solid.GetCurves()
-            .SelectMany(x => x.Tessellate()));
+        return solid.SelectCurves()
+            .SelectMany(x => x.Tessellate());
     }
     
-    public static Vertices GetEdgeVertices(this Solid solid)
+    public static IEnumerable<XYZ> SelectEdgeVertices(this Solid solid)
     {
         return solid
             .Edges.Cast<Edge>()
-            .SelectMany(x => x.Tessellate())
-            .ToVertices();
+            .SelectMany(x => x.Tessellate());
     }
 
 }

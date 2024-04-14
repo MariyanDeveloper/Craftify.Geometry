@@ -3,7 +3,8 @@
     <PropertyGroup>
         <OutputType>Library</OutputType>
         <TargetFramework>net48</TargetFramework>
-        <LangVersion>latest</LangVersion>
+        <LangVersion>preview</LangVersion>
+        <UseWpf>true</UseWpf>
         <Nullable>enable</Nullable>
         <Version>2.0.1</Version>
         <Title>Craftify.Geometry</Title>
@@ -13,10 +14,25 @@
         <PackageIcon>Craftify.png</PackageIcon>
         <RepositoryUrl>https://github.com/MariyanDeveloper/Craftify.Geometry</RepositoryUrl>
         <PackageTags>RevitAPI, Geometry</PackageTags>
+        <PackageId>Craftify.Geometry</PackageId>
     </PropertyGroup>
+    
+<!--    live-reload-->
+    <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+        <IncludePackageReferencesDuringMarkupCompilation>false</IncludePackageReferencesDuringMarkupCompilation>
+        <Revision>$([MSBuild]::Divide($([System.DateTime]::Now.TimeOfDay.TotalSeconds), 4).ToString('F0'))</Revision>
+        <PackageAssemblyVersion>.Dev.$(Version).$(Revision)</PackageAssemblyVersion>
+    </PropertyGroup>
+    <PropertyGroup>
+        <AssemblyName>$(PackageId)$(PackageAssemblyVersion)</AssemblyName>
+    </PropertyGroup>
+    
     <ItemGroup>
       <PackageReference Include="Craftify.Shared" Version="1.0.0" />
-      <PackageReference Include="Revit_All_Main_Versions_API_x64" Version="2023.0.0" />
+        <PackageReference Include="Revit_All_Main_Versions_API_x64"
+                          Version="2023.0.0"
+                          IncludeAssets="build; compile"
+                          PrivateAssets="all"/>
     </ItemGroup>
     <ItemGroup>
       <None Include="..\..\..\ProductInformation\Craftify.png">
@@ -25,11 +41,10 @@
         <Link>Craftify.png</Link>
       </None>
     </ItemGroup>
-
-    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-        <Exec Command="del &quot;$(OutputPath)\AdWindows.dll&quot;" />
-        <Exec Command="del &quot;$(OutputPath)\RevitAPI.dll&quot;" />
-        <Exec Command="del &quot;$(OutputPath)\RevitAPIUI.dll&quot;" />
-        <Exec Command="del &quot;$(OutputPath)\UIFramework.dll&quot;" />
-    </Target>
+    <ItemGroup>
+      <Reference Include="Craftify.Functional">
+        <HintPath>..\..\..\Craftify.Functional\src\Craftify.Functional\bin\Debug\netstandard2.0\Craftify.Functional.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+    
 </Project>
