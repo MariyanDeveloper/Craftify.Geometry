@@ -15,7 +15,11 @@ public class CuboidBoundingBoxSolidConverter : IBoundingBoxSolidConverter
         configOptions?.Invoke(options);
         var curveLoop = boundingBox.GetCurveLoop(FaceSide.Bottom, options.ApplyTransform);
         var extrusionDistance = boundingBox.CalculateDimension().Height;
-        var boundingBoxUpDirection = boundingBox.Transform.BasisZ;
+        var boundingBoxUpDirection = options.ApplyTransform switch {
+            ApplyTransform.Yes => boundingBox.Transform.BasisZ,
+            ApplyTransform.No => XYZ.BasisZ,
+            _ => throw new ArgumentOutOfRangeException()
+        };
         var extrusionDirection = (extrusionDistance < 0)
             ? -boundingBoxUpDirection
             : boundingBoxUpDirection;

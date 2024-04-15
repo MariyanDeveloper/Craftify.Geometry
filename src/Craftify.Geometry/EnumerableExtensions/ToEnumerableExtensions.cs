@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using static Craftify.Geometry.EnumerableExtensions.EnumerableReturnExtensions;
+using static Craftify.Geometry.EnumerableExtensions.EnumerableReturns;
 namespace Craftify.Geometry.EnumerableExtensions;
 
 public static class ToEnumerableExtensions

@@ -93,6 +93,7 @@ public static class GeometryElementExtractions
         return geometryElement.Flatten(options)
             .OfType<T>();
     }
+    
 
     
     

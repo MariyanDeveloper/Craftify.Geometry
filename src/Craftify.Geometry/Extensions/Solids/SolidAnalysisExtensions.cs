@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Autodesk.Revit.DB;
 using Craftify.Shared;
 
@@ -6,6 +8,10 @@ namespace Craftify.Geometry.Extensions.Solids;
 
 public static class SolidAnalysisExtensions
 {
+
+    public static IEnumerable<Solid> WithVolume(this IEnumerable<Solid> solids) =>
+        solids.Where(x => x.HasVolume());
+    
     public static bool HasFaces(
         this Solid solid) => solid.Faces.Size > 0;
     
