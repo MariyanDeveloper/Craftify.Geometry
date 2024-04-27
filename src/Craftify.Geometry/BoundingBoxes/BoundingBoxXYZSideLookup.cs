@@ -2,7 +2,6 @@
 using System.Linq;
 using Autodesk.Revit.DB;
 using Craftify.Geometry.Enums;
-using Craftify.Geometry.Extensions;
 using Craftify.Geometry.Extensions.Points;
 
 namespace Craftify.Geometry.BoundingBoxes;

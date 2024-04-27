@@ -35,11 +35,24 @@ public static class SolidChildrenExtractionExtensions
             .OfType<T>();
     }
     
-    public static IEnumerable<T> SelectFlattenFaces<T>(this IEnumerable<Solid> solids) where T : Face
+
+    public static IEnumerable<Curve> SelectFlattenCurves(this IEnumerable<Solid> solids)
+    {
+        return solids
+            .SelectMany(x => x.SelectCurves());
+    }
+    
+    public static IEnumerable<T> SelectFlattenFacesOfType<T>(this IEnumerable<Solid> solids) where T : Face
     {
         return solids
             .SelectMany(s => s.SelectFaces()
                 .OfType<T>());
+    }
+    
+    public static IEnumerable<Face> SelectFlattenFaces(this IEnumerable<Solid> solids)
+    {
+        return solids
+            .SelectMany(s => s.SelectFaces());
     }
         
     public static IEnumerable<XYZ> SelectFaceVertices(

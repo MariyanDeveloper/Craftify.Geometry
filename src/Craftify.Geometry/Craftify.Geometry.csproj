@@ -18,17 +18,17 @@
     </PropertyGroup>
     
 <!--    live-reload-->
-    <PropertyGroup Condition="'$(Configuration)'=='Debug'">
-        <IncludePackageReferencesDuringMarkupCompilation>false</IncludePackageReferencesDuringMarkupCompilation>
-        <Revision>$([MSBuild]::Divide($([System.DateTime]::Now.TimeOfDay.TotalSeconds), 4).ToString('F0'))</Revision>
-        <PackageAssemblyVersion>.Dev.$(Version).$(Revision)</PackageAssemblyVersion>
-    </PropertyGroup>
-    <PropertyGroup>
-        <AssemblyName>$(PackageId)$(PackageAssemblyVersion)</AssemblyName>
-    </PropertyGroup>
+<!--    <PropertyGroup Condition="'$(Configuration)'=='Debug'">-->
+<!--        <IncludePackageReferencesDuringMarkupCompilation>false</IncludePackageReferencesDuringMarkupCompilation>-->
+<!--        <Revision>$([MSBuild]::Divide($([System.DateTime]::Now.TimeOfDay.TotalSeconds), 4).ToString('F0'))</Revision>-->
+<!--        <PackageAssemblyVersion>.Dev.$(Version).$(Revision)</PackageAssemblyVersion>-->
+<!--    </PropertyGroup>-->
+<!--    <PropertyGroup>-->
+<!--        <AssemblyName>$(PackageId)$(PackageAssemblyVersion)</AssemblyName>-->
+<!--    </PropertyGroup>-->
     
     <ItemGroup>
-      <PackageReference Include="Craftify.Shared" Version="1.0.0" />
+<!--      <PackageReference Include="Craftify.Shared" Version="1.0.0" />-->
         <PackageReference Include="Revit_All_Main_Versions_API_x64"
                           Version="2023.0.0"
                           IncludeAssets="build; compile"
@@ -45,6 +45,12 @@
       <Reference Include="Craftify.Functional">
         <HintPath>..\..\..\Craftify.Functional\src\Craftify.Functional\bin\Debug\netstandard2.0\Craftify.Functional.dll</HintPath>
       </Reference>
+      <Reference Include="Craftify.Shared">
+        <HintPath>..\..\..\Craftify.Shared\src\Craftify.Shared\bin\Debug\net48\Craftify.Shared.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Collections\" />
     </ItemGroup>
     
 </Project>

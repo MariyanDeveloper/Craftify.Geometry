@@ -58,6 +58,17 @@ public static class BoundingBoxTransformations
         var newMin = boundingBoxXYZ.Min.MoveAlongVector(XYZ.BasisY.Negate() * value);
         return boundingBoxXYZ.SetMin(newMin);
     }
+    public static BoundingBoxXYZ ExtrudeRight(this BoundingBoxXYZ boundingBoxXYZ, double value)
+    {
+        var newMax = boundingBoxXYZ.Max.MoveAlongVector(XYZ.BasisX * value);
+        return boundingBoxXYZ.SetMax(newMax);
+    }
+    
+    public static BoundingBoxXYZ ExtrudeLeft(this BoundingBoxXYZ boundingBoxXYZ, double value)
+    {
+        var newMin = boundingBoxXYZ.Min.MoveAlongVector(XYZ.BasisX.Negate() * value);
+        return boundingBoxXYZ.SetMin(newMin);
+    }
 
     public static BoundingBoxXYZ ExtrudeDownwards(this BoundingBoxXYZ boundingBoxXYZ, double value)
     {

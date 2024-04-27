@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Autodesk.Revit.DB;
 using Craftify.Geometry.Enums;
 using Craftify.Geometry.Options;
+using Craftify.Shared;
 
 namespace Craftify.Geometry.Extensions.Faces
 {
@@ -15,26 +16,6 @@ namespace Craftify.Geometry.Extensions.Faces
                   _ => CreateHandTransform(plane)
               };
         
-        private static Transform CreateHandTransform(Plane plane)
-        {
-            var transform = Transform.Identity;
-            transform.Origin = plane.Origin;
-            transform.BasisX = plane.Normal;
-            transform.BasisY = plane.XVec;
-            transform.BasisZ = plane.YVec;
-            return transform;
-        }
-
-        private static Transform CreateFacingTransform(Plane plane)
-        {
-            var transform = Transform.Identity;
-            transform.Origin = plane.Origin;
-            transform.BasisY = plane.Normal;
-            transform.BasisX = plane.XVec;
-            transform.BasisZ = plane.YVec;
-            return transform;
-        }
-
         public static void VisualizeIn(
             this Plane plane, Document document, Action<PlaneVisualizeOptions>? configOptions = null)
         {
@@ -59,8 +40,7 @@ namespace Craftify.Geometry.Extensions.Faces
             Plane plane,
             XYZ upperRightCorner, XYZ upperLeftCorner, XYZ bottomRightCorner, XYZ bottomLeftCorner)
         {
-            var curves = new List<GeometryObject>
-            {
+            return List.Of(
                 Line.CreateBound(
                     upperRightCorner, upperLeftCorner),
                 Line.CreateBound(
@@ -71,8 +51,27 @@ namespace Craftify.Geometry.Extensions.Faces
                     bottomLeftCorner, bottomRightCorner),
                 Line.CreateBound(
                     plane.Origin, plane.Origin + plane.Normal)
-            };
-            return curves;
+            );
+        }
+        
+        private static Transform CreateHandTransform(Plane plane)
+        {
+            var transform = Transform.Identity;
+            transform.Origin = plane.Origin;
+            transform.BasisX = plane.Normal;
+            transform.BasisY = plane.XVec;
+            transform.BasisZ = plane.YVec;
+            return transform;
+        }
+
+        private static Transform CreateFacingTransform(Plane plane)
+        {
+            var transform = Transform.Identity;
+            transform.Origin = plane.Origin;
+            transform.BasisY = plane.Normal;
+            transform.BasisX = plane.XVec;
+            transform.BasisZ = plane.YVec;
+            return transform;
         }
     }
 }

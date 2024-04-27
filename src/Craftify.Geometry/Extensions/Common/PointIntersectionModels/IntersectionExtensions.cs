@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Autodesk.Revit.DB;
-using Craftify.Geometry.EnumerableExtensions;
 using Craftify.Geometry.Extensions.Faces;
+using Craftify.Shared;
 
 namespace Craftify.Geometry.Extensions.Common.Intersections;
 
