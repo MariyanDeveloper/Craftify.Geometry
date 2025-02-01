@@ -5,7 +5,7 @@ using Autodesk.Revit.DB;
 using Craftify.Geometry.Extensions.Points;
 using Craftify.Geometry.Options;
 
-namespace Craftify.Geometry.Extensions;
+namespace Craftify.Geometry.Extensions.Transforms;
 
 public static class TransformExtensions
 {

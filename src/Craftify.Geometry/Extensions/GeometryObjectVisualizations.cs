@@ -3,7 +3,7 @@ using Autodesk.Revit.DB;
 
 namespace Craftify.Geometry.Extensions;
 
-public static class GeometryObjectExtensions
+public static class GeometryObjectVisualizations
 {
     public static void VisualizeIn(this GeometryObject geometryObject, Document document)
     {

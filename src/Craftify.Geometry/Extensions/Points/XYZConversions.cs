@@ -1,5 +1,7 @@
 ﻿using Autodesk.Revit.DB;
 using System;
+using Craftify.Geometry.Extensions.Transforms;
+
 namespace Craftify.Geometry.Extensions.Points;
 
 public static class XYZConversions
@@ -15,22 +17,5 @@ public static class XYZConversions
     }
 
     public static Point ToPoint(this XYZ xyz) => Point.Create(xyz);
-
-    public static Transform ToTransformAsYFacing(this XYZ vector)
-    {
-        if (vector is null) throw new ArgumentNullException(nameof(vector));
-        var defaultVector = XYZ.BasisZ;
-        if (defaultVector.IsAlmostEqualTo(vector))
-        {
-            return TransformReturns.CreateYAsZ();
-        }
-        var yAxis = vector.Normalize();
-        var zAxis = defaultVector.CrossProduct(yAxis).Normalize();
-        var xAxis = yAxis.CrossProduct(zAxis).Normalize();
-        var transform = Transform.Identity;
-        transform.BasisX = xAxis;
-        transform.BasisY = yAxis;
-        transform.BasisZ = zAxis;
-        return transform;
-    }
+    
 }

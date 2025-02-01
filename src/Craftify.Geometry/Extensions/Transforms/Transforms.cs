@@ -1,10 +1,10 @@
 ﻿using Autodesk.Revit.DB;
 
-namespace Craftify.Geometry.VectorAlignments;
+namespace Craftify.Geometry.Extensions.Transforms;
 
-public class TransformBuilder
+public static class Transforms
 {
-    public Transform BuildXAsZ()
+    public static Transform CreateXAsZ()
     {
         var transform = Transform.Identity;
         transform.BasisX = XYZ.BasisZ;
@@ -12,8 +12,8 @@ public class TransformBuilder
         transform.BasisZ = -XYZ.BasisX;
         return transform;
     }
-
-    public Transform BuildYAsZ()
+    
+    public static Transform CreateYAsZ()
     {
         var transform = Transform.Identity;
         transform.BasisX = XYZ.BasisX;
@@ -21,8 +21,8 @@ public class TransformBuilder
         transform.BasisZ = -XYZ.BasisY;
         return transform;
     }
-
-    public Transform BuildZAsX()
+    
+    public static Transform CreateZAsX()
     {
         var transform = Transform.Identity;
         transform.BasisX = -XYZ.BasisZ;

@@ -17,12 +17,5 @@ public static class XYZExtensions
     {
         return (secondPoint - firstPoint).Normalize();
     }
-    
-    public static Transform AlignToTransform(this XYZ vector, IVectorToTransformAlignment vectorToTransformAlignment)
-    {
-        if (vector is null) throw new ArgumentNullException(nameof(vector));
-        if (vectorToTransformAlignment is null) throw new ArgumentNullException(nameof(vectorToTransformAlignment));
-        return vectorToTransformAlignment.Align(vector);
-    }
 
 }

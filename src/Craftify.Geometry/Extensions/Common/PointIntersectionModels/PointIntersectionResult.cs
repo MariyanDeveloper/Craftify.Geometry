@@ -1,3 +1,3 @@
-﻿namespace Craftify.Geometry.Extensions.Common.Intersections;
+﻿namespace Craftify.Geometry.Extensions.Common.PointIntersectionModels;
 
 public abstract record PointIntersectionResult();

@@ -2,6 +2,7 @@
 using Autodesk.Revit.DB;
 using Craftify.Geometry.BoundingBoxes.Visualizations.Models;
 using Craftify.Geometry.Extensions;
+using Craftify.Geometry.Extensions.Transforms;
 
 namespace Craftify.Geometry.BoundingBoxes.Visualizations;
 

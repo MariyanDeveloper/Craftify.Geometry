@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Craftify.Geometry.Extensions.Curves;
+namespace Craftify.Geometry.Extensions.Common.ComparisonCalculations;
 
 public static class PairComparisonSelectors
 {

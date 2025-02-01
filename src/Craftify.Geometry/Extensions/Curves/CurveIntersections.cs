@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Autodesk.Revit.DB;
-using Craftify.Geometry.Extensions.Common.Intersections;
+using Craftify.Geometry.Extensions.Common.PointIntersectionModels;
 
 namespace Craftify.Geometry.Extensions.Curves;
 

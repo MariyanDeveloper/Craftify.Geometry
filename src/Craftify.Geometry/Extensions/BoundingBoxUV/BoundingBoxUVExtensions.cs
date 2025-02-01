@@ -2,11 +2,11 @@
 using System.Linq;
 using Autodesk.Revit.DB;
 
-namespace Craftify.Geometry.Extensions.Faces;
+namespace Craftify.Geometry.Extensions.BoundingBoxUV;
 
 public static class BoundingBoxUVExtensions
 {
-    public static IEnumerable<UV> SelectBounds(this BoundingBoxUV boundingBoxUv)
+    public static IEnumerable<UV> SelectBounds(this Autodesk.Revit.DB.BoundingBoxUV boundingBoxUv)
     {
         var startIndexRange = 0;
         var endIndexRange = 2;

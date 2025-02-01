@@ -14,8 +14,7 @@ public static class XYZMeasurements
             firstPoint.ToVector(secondPoint).DotProduct(vector));
     }
     
-    public static double MeasureSignedDistance(
-        this XYZ firstPoint, XYZ secondPoint, XYZ vector)
+    public static double MeasureSignedDistance(this XYZ firstPoint, XYZ secondPoint, XYZ vector)
     {
         return firstPoint.ToVector(secondPoint).DotProduct(vector);
     }

@@ -3,7 +3,7 @@ using System.Linq;
 using Autodesk.Revit.DB;
 using Craftify.Shared;
 
-namespace Craftify.Geometry.Extensions.Common.Intersections;
+namespace Craftify.Geometry.Extensions.Common.PointIntersectionModels;
 
 public static class PointIntersectionResultMapExtensions
 {

@@ -7,6 +7,11 @@ namespace Craftify.Geometry.Extensions.Solids;
 
 public static class SolidSelectors
 {
+    
+    public static IEnumerable<Solid> WhereVolumesNotEmpty(this IEnumerable<Solid> solids) =>
+        solids
+            .Where(s => s.HasVolume());
+    
     public static IEnumerable<PlanarFace> SelectPlanarFacesMatchingDirection(
         this IEnumerable<Solid> solids, XYZ direction)
     {

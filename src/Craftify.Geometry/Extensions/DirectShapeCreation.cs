@@ -4,7 +4,7 @@ using Autodesk.Revit.DB;
 
 namespace Craftify.Geometry.Extensions;
 
-public static class DocumentExtensions
+public static class DirectShapeCreation
 {
     public static DirectShape CreateDirectShape(
         this Document document,

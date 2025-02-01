@@ -22,37 +22,38 @@ public static class GeometryElementExtractions
             _ => throw new ArgumentOutOfRangeException(nameof(geometryObject), geometryObject, null)
         };
     }
-
     
     public static IEnumerable<T> SelectChildrenOfType<T>(
-        this GeometryElement geometryElement,
+        this IEnumerable<GeometryObject> geometryObjects,
         GeometryExtractionConfig? config = default) where T : GeometryObject
     {
         var options = config ?? GeometryExtractionConfig.Default;
-        return geometryElement.Flatten(options)
+        return geometryObjects.Flatten(options)
             .OfType<T>();
     }
-    
-
     
     
     public static IEnumerable<T> SelectChildrenOfType<T>(
-        this GeometryElement geometryElement,
+        this IEnumerable<GeometryObject> geometryObjects,
         Action<GeometryExtractionConfigBuilder> configureSettings) where T : GeometryObject
     {
-        return geometryElement.Flatten(configureSettings)
+        return geometryObjects.Flatten(configureSettings)
             .OfType<T>();
     }
 
+
     public static IEnumerable<GeometryObject> Flatten(
-        this GeometryElement geometryElement,
-        GeometryExtractionConfig? config = default)
+        this IEnumerable<GeometryObject> geometryObjects,
+        Action<GeometryExtractionConfigBuilder> configureSettings
+    )
     {
-        var options = config ?? GeometryExtractionConfig.Default;
-        return geometryElement.SelectMany(x =>
+        var builder = GeometryExtractionConfigBuilder.Create();
+        configureSettings.Invoke(builder);
+        var options = builder.Build();
+        return geometryObjects.SelectMany(x =>
         {
             return x.Match(
-                leaf: l => l.AsEnumerable(),
+                leaf: l => l.AsMaterializedEnumerable(),
                 geometryElementBranch: e => e.Flatten(options),
                 geometryInstanceBranch: i => options.GeometryRepresentation.Match(
                     symbol: () => i.GetSymbolGeometry().Flatten(options),
@@ -62,12 +63,19 @@ public static class GeometryElementExtractions
     }
     
     public static IEnumerable<GeometryObject> Flatten(
-        this GeometryElement geometryElement,
-        Action<GeometryExtractionConfigBuilder> configSetup)
+        this IEnumerable<GeometryObject> geometryObjects,
+        GeometryExtractionConfig? config = default)
     {
-        var builder = GeometryExtractionConfigBuilder.Create();
-        configSetup.Invoke(builder);
-        var options = builder.Build();
-        return geometryElement.Flatten(options);
+        var options = config ?? GeometryExtractionConfig.Default;
+        return geometryObjects.SelectMany(x =>
+        {
+            return x.Match(
+                leaf: l => l.AsMaterializedEnumerable(),
+                geometryElementBranch: e => e.Flatten(options),
+                geometryInstanceBranch: i => options.GeometryRepresentation.Match(
+                    symbol: () => i.GetSymbolGeometry().Flatten(options),
+                    instance: () => i.GetInstanceGeometry().Flatten(options)
+                ));
+        });
     }
 }

@@ -5,73 +5,72 @@ using Craftify.Geometry.Enums;
 using Craftify.Geometry.Options;
 using Craftify.Shared;
 
-namespace Craftify.Geometry.Extensions.Faces
+namespace Craftify.Geometry.Extensions.Planes;
+
+public static class PlaneExtensions
 {
-    public static class PlaneExtensions
+    public static Transform ToTransform(this Plane plane, Orientation orientation = Orientation.Facing) =>
+        orientation switch
+        {
+            Orientation.Facing => CreateFacingTransform(plane),
+            _ => CreateHandTransform(plane)
+        };
+        
+    public static void VisualizeIn(
+        this Plane plane, Document document, Action<PlaneVisualizeOptions>? configOptions = null)
     {
-        public static Transform ToTransform(this Plane plane, Orientation orientation = Orientation.Facing) =>
-            orientation switch
-              {
-                  Orientation.Facing => CreateFacingTransform(plane),
-                  _ => CreateHandTransform(plane)
-              };
-        
-        public static void VisualizeIn(
-            this Plane plane, Document document, Action<PlaneVisualizeOptions>? configOptions = null)
-        {
-            var options = new PlaneVisualizeOptions();
-            configOptions?.Invoke(options);
-            var planeOrigin = plane.Origin;
-            var scale = options.Scale;
-            var upperRightCorner = planeOrigin + (plane.XVec * scale) + (plane.YVec * scale);
-            var upperLeftCorner = planeOrigin - (plane.XVec * scale) + (plane.YVec * scale);
-            var bottomRightCorner = planeOrigin + (plane.XVec * scale) - (plane.YVec * scale);
-            var bottomLeftCorner = planeOrigin - (plane.XVec * scale) - (plane.YVec * scale);
-            var curves = CreateCurves(
-                plane,
-                upperRightCorner,
-                upperLeftCorner,
-                bottomRightCorner,
-                bottomLeftCorner);
-            document.CreateDirectShape(curves);
-        }
+        var options = new PlaneVisualizeOptions();
+        configOptions?.Invoke(options);
+        var planeOrigin = plane.Origin;
+        var scale = options.Scale;
+        var upperRightCorner = planeOrigin + (plane.XVec * scale) + (plane.YVec * scale);
+        var upperLeftCorner = planeOrigin - (plane.XVec * scale) + (plane.YVec * scale);
+        var bottomRightCorner = planeOrigin + (plane.XVec * scale) - (plane.YVec * scale);
+        var bottomLeftCorner = planeOrigin - (plane.XVec * scale) - (plane.YVec * scale);
+        var curves = CreateCurves(
+            plane,
+            upperRightCorner,
+            upperLeftCorner,
+            bottomRightCorner,
+            bottomLeftCorner);
+        document.CreateDirectShape(curves);
+    }
 
-        private static IEnumerable<GeometryObject> CreateCurves(
-            Plane plane,
-            XYZ upperRightCorner, XYZ upperLeftCorner, XYZ bottomRightCorner, XYZ bottomLeftCorner)
-        {
-            return List.Of(
-                Line.CreateBound(
-                    upperRightCorner, upperLeftCorner),
-                Line.CreateBound(
-                    upperRightCorner, bottomRightCorner),
-                Line.CreateBound(
-                    upperLeftCorner, bottomLeftCorner),
-                Line.CreateBound(
-                    bottomLeftCorner, bottomRightCorner),
-                Line.CreateBound(
-                    plane.Origin, plane.Origin + plane.Normal)
-            );
-        }
+    private static IEnumerable<GeometryObject> CreateCurves(
+        Plane plane,
+        XYZ upperRightCorner, XYZ upperLeftCorner, XYZ bottomRightCorner, XYZ bottomLeftCorner)
+    {
+        return List.Of(
+            Line.CreateBound(
+                upperRightCorner, upperLeftCorner),
+            Line.CreateBound(
+                upperRightCorner, bottomRightCorner),
+            Line.CreateBound(
+                upperLeftCorner, bottomLeftCorner),
+            Line.CreateBound(
+                bottomLeftCorner, bottomRightCorner),
+            Line.CreateBound(
+                plane.Origin, plane.Origin + plane.Normal)
+        );
+    }
         
-        private static Transform CreateHandTransform(Plane plane)
-        {
-            var transform = Transform.Identity;
-            transform.Origin = plane.Origin;
-            transform.BasisX = plane.Normal;
-            transform.BasisY = plane.XVec;
-            transform.BasisZ = plane.YVec;
-            return transform;
-        }
+    private static Transform CreateHandTransform(Plane plane)
+    {
+        var transform = Transform.Identity;
+        transform.Origin = plane.Origin;
+        transform.BasisX = plane.Normal;
+        transform.BasisY = plane.XVec;
+        transform.BasisZ = plane.YVec;
+        return transform;
+    }
 
-        private static Transform CreateFacingTransform(Plane plane)
-        {
-            var transform = Transform.Identity;
-            transform.Origin = plane.Origin;
-            transform.BasisY = plane.Normal;
-            transform.BasisX = plane.XVec;
-            transform.BasisZ = plane.YVec;
-            return transform;
-        }
+    private static Transform CreateFacingTransform(Plane plane)
+    {
+        var transform = Transform.Identity;
+        transform.Origin = plane.Origin;
+        transform.BasisY = plane.Normal;
+        transform.BasisX = plane.XVec;
+        transform.BasisZ = plane.YVec;
+        return transform;
     }
 }

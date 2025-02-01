@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Autodesk.Revit.DB;
+using Craftify.Geometry.Extensions.Common.ComparisonCalculations;
 using Craftify.Geometry.Extensions.Curves;
 
 namespace Craftify.Geometry.Extensions.Points;

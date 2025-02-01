@@ -1,6 +1,7 @@
 ﻿using Autodesk.Revit.DB;
 using Craftify.Geometry.Enums;
 using Craftify.Geometry.Extensions.Curves.Constants;
+using Craftify.Geometry.Extensions.Curves.Enums;
 using Craftify.Geometry.Extensions.Points;
 
 namespace Craftify.Geometry.Extensions.Curves;

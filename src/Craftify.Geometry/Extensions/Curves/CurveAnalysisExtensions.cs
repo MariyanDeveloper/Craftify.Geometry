@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Autodesk.Revit.DB;
-using Craftify.Geometry.Extensions.Curves.Models;
+using Craftify.Geometry.Extensions.Common.ComparisonCalculations;
 
 namespace Craftify.Geometry.Extensions.Curves;
 
@@ -46,13 +46,12 @@ public static class CurveAnalysisExtensions
                 vectorMeasurementFunc: measureDistanceFunc);
     }
     
-    public static MergeCollinearLinesResult MergeWithCollinear(this Line fromLine, Line toLine)
+    public static Line MergeWithCollinear(this Line fromLine, Line toLine)
     {
         if (fromLine.IsCollinearTo(toLine) is false)
         {
-            return MergeCollinearLinesResults.CreateNotCollinearLinesResult();
+            throw new InvalidOperationException($"Lines are not collinear");
         }
-
         var (left, right) = fromLine.Tessellate()
             .Concat(toLine.Tessellate())
             .SelectFurthermostPair(

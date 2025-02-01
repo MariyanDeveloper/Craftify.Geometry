@@ -2,6 +2,7 @@
 using Craftify.Geometry.Enums;
 using Craftify.Geometry.Extensions;
 using Craftify.Geometry.Extensions.Points;
+using Craftify.Geometry.Extensions.Transforms;
 
 namespace Craftify.Geometry.BoundingBoxes.Builders;
 
@@ -45,7 +46,7 @@ public class SectionBoundingBoxBuilder
     public BoundingBoxXYZ Build()
     {
         var transform = _facingVector
-            .ToTransformAsYFacing()
+            .AlignToTransformAsYFacing()
             .CreateAdaptedToSection()
             .SetOrigin(_origin);
         var boundingBox = new BoundingBoxBuilder()

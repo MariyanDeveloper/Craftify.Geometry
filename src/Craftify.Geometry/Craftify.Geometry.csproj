@@ -49,8 +49,5 @@
         <HintPath>..\..\..\Craftify.Shared\src\Craftify.Shared\bin\Debug\net48\Craftify.Shared.dll</HintPath>
       </Reference>
     </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Collections\" />
-    </ItemGroup>
     
 </Project>

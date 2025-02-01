@@ -3,7 +3,7 @@ using Craftify.Geometry.Extensions.Points;
 
 namespace Craftify.Geometry.Extensions;
 
-public static class OutlineExtensions
+public static class OutlineVisualizations
 {
     public static void VisualizeIn(this Outline outline, Document document)
     {

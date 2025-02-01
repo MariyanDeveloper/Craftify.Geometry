@@ -2,7 +2,7 @@
 using System.Linq;
 using Autodesk.Revit.DB;
 
-namespace Craftify.Geometry.Extensions.Faces;
+namespace Craftify.Geometry.Extensions;
 
 public static class IntersectionResultArrayExtensions
 {

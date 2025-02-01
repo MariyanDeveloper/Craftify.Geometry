@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Autodesk.Revit.DB;
 
-namespace Craftify.Geometry.Extensions.Curves;
+namespace Craftify.Geometry.Extensions.Common.ComparisonCalculations;
 
 public static class ClosestElementCalculations
 {
